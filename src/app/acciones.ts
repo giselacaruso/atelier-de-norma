@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { after } from "next/server";
 import { cambiar, nuevoId, type Estado, type Suscripcion } from "@/lib/store";
 import { guardarFoto } from "@/lib/fotos";
 import { entrar, esNorma } from "@/lib/sesion";
@@ -74,6 +75,19 @@ export async function guardarSuscripcion(s: Suscripcion) {
     db.suscripciones = db.suscripciones.filter((x) => x.endpoint !== s.endpoint);
     db.suscripciones.push({ endpoint: s.endpoint, keys: s.keys });
   });
+}
+
+/**
+ * Solo para el demo: el recordatorio semanal llega a los 15 segundos en vez de a los 7 días,
+ * así se puede cerrar la app y ver cómo aparece en el celular.
+ */
+export async function simularRecordatorio() {
+  await soloNorma();
+  after(async () => {
+    await new Promise((r) => setTimeout(r, 15_000));
+    await avisarANorma("¿Sigue todo igual en el taller?", "Si hiciste tazas nuevas o se vendió alguna, tocá acá.");
+  });
+  return true;
 }
 
 export async function probarAviso() {

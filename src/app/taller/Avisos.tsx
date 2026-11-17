@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Bell, ChevronDown, Share, Smartphone } from "lucide-react";
-import { guardarSuscripcion, probarAviso } from "@/app/acciones";
+import { guardarSuscripcion, probarAviso, simularRecordatorio } from "@/app/acciones";
 
 type Estado = "cargando" | "no-soportado" | "instalar-iphone" | "pedir" | "bloqueado" | "activo";
 
@@ -83,6 +83,18 @@ export function Avisos() {
             onClick={async () => setMensaje((await probarAviso()) ? "Te mandé uno de prueba." : "No pude mandarlo.")}
           >
             Mandarme uno de prueba
+          </button>
+        )}
+        {estado === "activo" && (
+          <button
+            type="button"
+            className="boton boton-borde !min-h-11 !px-4 text-[0.8rem]"
+            onClick={async () => {
+              await simularRecordatorio();
+              setMensaje("Listo. Cerrá la app: en 15 segundos te llega el recordatorio semanal.");
+            }}
+          >
+            Probar el recordatorio (demo)
           </button>
         )}
       </div>
