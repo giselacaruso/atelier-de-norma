@@ -34,11 +34,18 @@ body {
   line-height: 1.55;
 }
 
-/* Foco bien visible para quien navega con teclado */
-:focus-visible {
-  outline: 4px solid var(--color-tinta);
-  outline-offset: 3px;
-  border-radius: 6px;
+/* Foco visible para quien navega con teclado, en el rojo de la marca (nunca negro).
+ * Va en la capa "base" para que los campos, que ya marcan el foco con borde rojo, lo puedan quitar. */
+@layer base {
+  :focus-visible {
+    outline: 3px solid var(--color-rojo);
+    outline-offset: 3px;
+  }
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: none;
+  }
 }
 
 /* Títulos que reciben foco por código: sin recuadro */
@@ -105,30 +112,33 @@ body {
   transform: scale(0.97);
 }
 
-/* Pestaña roja del pie, pegada al borde de abajo: "Entrar a mi taller" */
+/* Pestaña roja del pie: "Entrar a mi taller".
+ * Celular: sale del borde izquierdo (redondeada solo a la derecha), alto y altura de la carita de Norma.
+ * Compu: pegada al borde de abajo, redondeada arriba. */
 .pestana {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 3.6rem;
-  padding: 1rem 1.4rem 1.1rem;
-  border-radius: 1.75rem 1.75rem 0 0;
+  min-height: 4rem; /* igual que la carita del chat */
+  padding: 0.8rem 1.6rem 0.8rem 1.4rem;
+  border-radius: 0 999px 999px 0;
   background: var(--color-rojo);
-  color: #fff;
-  font-size: 0.8rem;
+  color: var(--color-crema);
+  font-size: 0.9rem;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
   white-space: nowrap;
   text-decoration: none;
-  transform-origin: bottom center; /* al apretarla no se despega del borde */
+  transform-origin: left center; /* al apretarla no se despega del borde */
   transition:
     transform 0.16s var(--ease-out-quad),
     background-color 0.2s ease;
 }
 @media (min-width: 40rem) {
   .pestana {
-    padding-inline: 2.2rem;
+    min-height: 3.6rem;
+    padding: 1rem 2.2rem 1.1rem;
+    border-radius: 1.75rem 1.75rem 0 0;
+    transform-origin: bottom center;
   }
 }
 .pestana:hover {
@@ -143,7 +153,7 @@ body {
 }
 .boton-rojo {
   background: var(--color-rojo);
-  color: #fff;
+  color: var(--color-crema);
 }
 .boton-rojo:hover {
   background: var(--color-rojo-oscuro);

@@ -73,7 +73,7 @@ export default async function PaginaPieza({ params }: { params: Promise<{ id: st
               href={linkCompra(pieza, url)}
               target="_blank"
               rel="noopener noreferrer"
-              className="boton boton-rojo mt-8 w-full uppercase tracking-wide sm:w-auto"
+              className="boton boton-rojo mt-8 w-full sm:w-auto"
             >
               La quiero
             </a>

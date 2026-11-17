@@ -4,7 +4,7 @@ import Link from "next/link";
 import { leer } from "@/lib/store";
 import { sitio } from "@/lib/sitio";
 import { tienda } from "@/config";
-import { Logo, CaraNorma } from "@/components/Marca";
+import { Logo } from "@/components/Marca";
 import { BotonLetra } from "@/components/BotonLetra";
 import { TarjetaPieza } from "@/components/TarjetaPieza";
 import { NormaBot, BotonHablar } from "@/components/NormaBot";
@@ -15,7 +15,7 @@ export const dynamic = "force-dynamic";
 const fotos = [
   { src: "/norma/jarron.webp", alt: "Norma con un jarrón recién terminado en la mano.", clase: "-rotate-[4deg] translate-y-2 z-10" },
   { src: "/norma/manos.webp", alt: "Las manos de Norma pintando florcitas en una taza.", clase: "rotate-[3deg] -translate-y-1 z-20" },
-  { src: "/norma/estantes.webp", alt: "Los estantes del taller llenos de piezas.", clase: "-rotate-[2deg] translate-y-3 z-10" },
+  { src: "/norma/mate.webp", alt: "Un mate de cerámica de Norma, listo para la primera cebada.", clase: "-rotate-[2deg] translate-y-3 z-10" },
   { src: "/norma/torno.webp", alt: "Norma trabajando una pieza en el torno.", clase: "rotate-[4deg] z-20" },
 ];
 
@@ -35,10 +35,6 @@ export default async function Tienda() {
 
   return (
     <>
-      <a href="#piezas" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-rojo focus:px-5 focus:py-3 focus:text-white">
-        Ir directo a las tazas
-      </a>
-
       {/* ---------- Hero: logo rojo, Polaroids del taller y la frase ---------- */}
       <header className="mx-auto max-w-6xl px-5 pb-12 pt-5 sm:px-8 sm:pb-16">
         <div className="flex justify-end">
@@ -77,7 +73,7 @@ export default async function Tienda() {
               <br />
               del horno.
             </h2>
-            <BotonHablar className="boton boton-rojo mt-6 !min-h-12 uppercase tracking-wide">¡Hablemos!</BotonHablar>
+            <BotonHablar className="boton boton-rojo mt-6 !min-h-12">¡Hablemos!</BotonHablar>
           </div>
 
           {lista.length ? (
@@ -98,21 +94,13 @@ export default async function Tienda() {
           <h2 id="como" className="titulo text-[2.5rem] text-rojo sm:text-[3.6rem]">
             Cómo comprar
           </h2>
-          <div className="mt-6 flex max-w-xl items-center gap-4 text-left">
-            <CaraNorma className="h-16 w-16 shrink-0" />
-            <p className="relative rounded-2xl rounded-bl-md bg-crema-2 px-5 py-3 text-[1.05rem] leading-snug">
-              Es muy fácil, no hace falta registrarse ni nada de eso. Me escribís por WhatsApp y lo charlamos.
-            </p>
-          </div>
         </div>
 
         <ol className="relative mt-14 grid gap-5 md:grid-cols-3 md:gap-6">
-          {/* línea punteada que une los pasos en compu */}
-          <span aria-hidden="true" className="absolute left-[16%] right-[16%] top-[2.75rem] hidden border-t-2 border-dashed border-rojo/30 md:block" />
           {pasos.map(({ Icono, titulo, texto }, i) => (
-            <li key={titulo} className="relative flex gap-5 rounded-[1.75rem] bg-papel p-6 md:flex-col md:items-center md:p-8 md:text-center">
-              <span className="relative grid h-[5.5rem] w-[5.5rem] shrink-0 place-items-center rounded-full bg-rosa ring-8 ring-papel">
-                <Icono aria-hidden="true" className="h-10 w-10 text-rojo" strokeWidth={1.6} />
+            <li key={titulo} className="relative flex gap-5 rounded-[1.75rem] bg-papel px-0 py-4 md:flex-col md:items-center md:p-8 md:text-center">
+              <span className="relative grid h-16 w-16 shrink-0 place-items-center rounded-full bg-rosa ring-8 ring-papel md:h-[5.5rem] md:w-[5.5rem]">
+                <Icono aria-hidden="true" className="h-8 w-8 text-rojo md:h-10 md:w-10" strokeWidth={1.6} />
                 <span className="absolute -right-1 -top-1 grid h-8 w-8 place-items-center rounded-full bg-rojo text-[0.85rem] font-bold text-white">
                   {i + 1}
                 </span>
@@ -127,19 +115,20 @@ export default async function Tienda() {
       </section>
 
       {/* ---------- Pie ---------- */}
-      <footer className="border-t-2 border-crema-2">
+      <footer>
         <div className="mx-auto flex max-w-6xl flex-col px-5 sm:px-8">
           <a href="#" className="mx-auto mt-20 text-rojo sm:mt-24" aria-label="Atelier de Norma, volver arriba">
             <Logo className="!h-auto w-[min(70vw,17rem)]" />
           </a>
 
           {/* Abajo: copyright, la pestaña para entrar al taller pegada al borde, y el crédito */}
-          <div className="mt-16 grid gap-6 text-[0.75rem] text-rojo sm:mt-24 sm:grid-cols-[1fr_auto_1fr] sm:items-end sm:gap-8">
+          {/* Celular: copyright y crédito juntos, y la pestaña pegada al borde izquierdo a la altura de la carita de Norma */}
+          <div className="mt-20 grid text-[0.75rem] leading-snug text-rojo sm:mt-24 sm:grid-cols-[1fr_auto_1fr] sm:items-end sm:gap-8">
             <p className="text-center sm:pb-5 sm:text-left">
               © {new Date().getFullYear()} | {tienda.nombre}. Todos los derechos reservados.
             </p>
             {/* pr: deja lugar a la carita flotante de Norma */}
-            <p className="text-center sm:order-3 sm:pb-5 sm:pr-16 sm:text-right">
+            <p className="mt-1 text-center sm:order-3 sm:mt-0 sm:pb-5 sm:pr-16 sm:text-right">
               Desarrollado por{" "}
               <a
                 href="https://giselacaruso.com"
@@ -150,8 +139,7 @@ export default async function Tienda() {
                 giselacaruso.com
               </a>
             </p>
-            {/* En el celular va a la izquierda para que no la tape la carita de Norma */}
-            <Link href="/taller" className="pestana justify-self-start sm:order-2 sm:justify-self-center">
+            <Link href="/taller" className="pestana -ml-5 mb-4 mt-12 justify-self-start sm:order-2 sm:mb-0 sm:ml-0 sm:mt-0 sm:justify-self-center">
               Entrar a mi taller
             </Link>
           </div>

@@ -116,7 +116,7 @@ export function NormaBot({ pieza, saludar = true }: { pieza?: string; saludar?: 
             </p>
           </div>
 
-          <ul className="flex flex-col gap-2 px-4 pb-3 pt-1">
+          <ul className="flex flex-col gap-2 px-4 pb-4 pt-1">
             {opciones.map(([texto, mensaje]) => (
               <li key={texto}>
                 <a
@@ -135,9 +135,6 @@ export function NormaBot({ pieza, saludar = true }: { pieza?: string; saludar?: 
               </li>
             ))}
           </ul>
-          <p className="px-4 pb-4 text-[0.8rem] leading-snug text-tinta/80">
-            Se abre WhatsApp con el mensaje listo. Solo tenés que enviarlo.
-          </p>
         </div>
       )}
 

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Plus } from "lucide-react";
+import { Plus, Store } from "lucide-react";
 import { leer } from "@/lib/store";
 import { esNorma } from "@/lib/sesion";
 import { Logo, CaraNorma } from "@/components/Marca";
@@ -23,7 +23,11 @@ export default async function Taller() {
     <>
       <header className="flex items-center justify-between gap-4 border-b-2 border-crema-2 pb-5">
         <Logo className="text-[1.3rem] text-rojo" />
-        <Link href="/" className="volanta text-rojo underline underline-offset-4">
+        <Link
+          href="/"
+          className="inline-flex min-h-11 items-center gap-2 rounded-full px-1 text-[0.9rem] font-bold text-rojo transition-colors hover:text-rojo-oscuro"
+        >
+          <Store aria-hidden="true" className="h-5 w-5" strokeWidth={2} />
           Ver la tienda
         </Link>
       </header>
@@ -35,7 +39,7 @@ export default async function Taller() {
         </div>
       </div>
 
-      <Link href="/taller/nueva" className="boton boton-rojo mt-8 w-full !min-h-16 uppercase tracking-wide">
+      <Link href="/taller/nueva" className="boton boton-rojo mt-8 w-full !min-h-16">
         <Plus aria-hidden="true" className="h-6 w-6" strokeWidth={2.25} /> Nuevo producto
       </Link>
 

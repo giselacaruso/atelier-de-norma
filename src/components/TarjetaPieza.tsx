@@ -45,7 +45,7 @@ export function TarjetaPieza({ pieza, sitio }: { pieza: Pieza; sitio: string }) 
             href={linkCompra(pieza, sitio)}
             target="_blank"
             rel="noopener noreferrer"
-            className="boton boton-rojo w-full uppercase tracking-wide"
+            className="boton boton-rojo w-full"
           >
             La quiero
           </a>

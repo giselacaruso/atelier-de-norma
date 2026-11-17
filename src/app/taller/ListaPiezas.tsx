@@ -32,37 +32,68 @@ function TarjetaTaller({ pieza }: { pieza: Pieza }) {
         <Etiqueta estado={pieza.estado} chica />
       </div>
 
-      <div className="mt-4 flex items-baseline justify-between gap-3">
-        <p className="text-[1.05rem] font-bold leading-snug">{pieza.nombre}</p>
-        <p className="shrink-0 text-[1.05rem] font-bold text-rojo">{formatoPrecio(pieza.precio)}</p>
-      </div>
-      <div className="flex items-center justify-between gap-3">
-        <p className="flex items-center gap-2 text-[0.8rem] text-tinta/75">
-          <span aria-hidden="true" className={`h-2.5 w-2.5 rounded-full ${sinStock ? "bg-black" : "bg-verde"}`} />
-          {sinStock ? "Sin stock" : "A la venta"}
-        </p>
-        {!borrando && (
-          <button
-            type="button"
-            onClick={() => setBorrando(true)}
-            className="-mr-1 inline-flex min-h-11 shrink-0 items-center gap-1 px-1 text-[0.8rem] font-bold text-tinta/70 transition-colors hover:text-rojo"
+      {/* Renglones: nombre y precio arriba, estado y borrar abajo, separados por líneas finas */}
+      <div className="mt-4 divide-y divide-crema-3 border-y border-crema-3">
+        <div className="flex items-baseline justify-between gap-3 py-3">
+          <p className="text-[1.05rem] font-bold leading-snug">
+            {pieza.nombre}
+          </p>
+          <p className="shrink-0 text-[1.05rem] font-bold text-rojo">
+            {formatoPrecio(pieza.precio)}
+          </p>
+        </div>
+        <div className="flex min-h-12 items-center justify-between gap-3">
+          <p
+            className={`flex items-center gap-2 text-[0.85rem] font-bold ${sinStock ? "text-tinta/70" : "text-verde"}`}
           >
-            <Trash2 aria-hidden="true" className="h-[1.15em] w-[1.15em]" strokeWidth={2} /> Borrar
-          </button>
-        )}
+            <span
+              aria-hidden="true"
+              className={`h-2.5 w-2.5 rounded-full ${sinStock ? "bg-tinta/70" : "bg-verde"}`}
+            />
+            {sinStock ? "Sin stock" : "A la venta"}
+          </p>
+          {!borrando && (
+            <button
+              type="button"
+              onClick={() => setBorrando(true)}
+              className="-mr-1 inline-flex min-h-11 shrink-0 items-center gap-1 px-1 text-[0.8rem] font-bold text-tinta/70 transition-colors hover:text-rojo"
+            >
+              <Trash2
+                aria-hidden="true"
+                className="h-[1.15em] w-[1.15em]"
+                strokeWidth={2}
+              />{" "}
+              Borrar
+            </button>
+          )}
+        </div>
       </div>
 
       {borrando ? (
-        <div role="alertdialog" aria-labelledby={`borrar-${pieza.id}`} className="aparecer mt-3 origin-top rounded-2xl bg-crema-2 p-4">
+        <div
+          role="alertdialog"
+          aria-labelledby={`borrar-${pieza.id}`}
+          className="aparecer mt-3 origin-top rounded-2xl bg-crema-2 p-4"
+        >
           <p id={`borrar-${pieza.id}`} className="font-bold leading-snug">
             ¿Borrar la {pieza.nombre} de la tienda para siempre?
           </p>
           <p className="mt-1 text-[0.85rem]">No se puede deshacer.</p>
           <div className="mt-3 flex flex-wrap gap-2">
-            <button type="button" disabled={pendiente} onClick={() => start(() => borrarPieza(pieza.id))} className={`${chico} boton-rojo`}>
+            <button
+              type="button"
+              disabled={pendiente}
+              onClick={() => start(() => borrarPieza(pieza.id))}
+              className={`${chico} boton-rojo`}
+            >
               Sí, borrarla
             </button>
-            <button type="button" onClick={() => setBorrando(false)} className={`${chico} boton-borde`} autoFocus>
+            <button
+              type="button"
+              onClick={() => setBorrando(false)}
+              className={`${chico} boton-borde`}
+              autoFocus
+            >
               No
             </button>
           </div>
@@ -77,12 +108,18 @@ function TarjetaTaller({ pieza }: { pieza: Pieza }) {
             })
           }
         >
-          <label htmlFor={`precio-${pieza.id}`} className="block text-[0.85rem] font-bold">
+          <label
+            htmlFor={`precio-${pieza.id}`}
+            className="block text-[0.85rem] font-bold"
+          >
             Precio nuevo
           </label>
           {/* El $ va adentro del campo y el número se muestra con puntos, como se escribe a mano */}
           <div className="mt-1.5 flex min-h-14 items-center gap-1 rounded-2xl border-2 border-crema-3 bg-white px-4 transition-[border-color,box-shadow] duration-200 focus-within:border-rojo focus-within:shadow-[0_0_0_4px_var(--color-rosa)]">
-            <span aria-hidden="true" className="text-[1.3rem] font-bold text-rojo">
+            <span
+              aria-hidden="true"
+              className="text-[1.3rem] font-bold text-rojo"
+            >
               $
             </span>
             <input
@@ -90,7 +127,9 @@ function TarjetaTaller({ pieza }: { pieza: Pieza }) {
               inputMode="numeric"
               autoComplete="off"
               value={precio ? Number(precio).toLocaleString("es-AR") : ""}
-              onChange={(e) => setPrecio(e.target.value.replace(/\D/g, "").slice(0, 9))}
+              onChange={(e) =>
+                setPrecio(e.target.value.replace(/\D/g, "").slice(0, 9))
+              }
               onFocus={(e) => e.target.select()}
               aria-describedby={`antes-${pieza.id}`}
               data-foco-marco
@@ -98,11 +137,17 @@ function TarjetaTaller({ pieza }: { pieza: Pieza }) {
               autoFocus
             />
           </div>
-          <p id={`antes-${pieza.id}`} className="mt-1.5 text-[0.8rem] text-tinta/70">
+          <p
+            id={`antes-${pieza.id}`}
+            className="mt-1.5 text-[0.8rem] text-tinta/70"
+          >
             Antes: {formatoPrecio(pieza.precio)}
           </p>
           <div className="mt-4 flex items-center gap-2">
-            <button className={`${chico} boton-rojo flex-1`} disabled={pendiente || !precio || Number(precio) === pieza.precio}>
+            <button
+              className={`${chico} boton-rojo flex-1`}
+              disabled={pendiente || !precio || Number(precio) === pieza.precio}
+            >
               {pendiente ? "Guardando…" : "Guardar"}
             </button>
             <button
@@ -118,16 +163,24 @@ function TarjetaTaller({ pieza }: { pieza: Pieza }) {
           </div>
         </form>
       ) : (
-        <div className="mt-2 flex flex-wrap items-center gap-2">
+        <div className="mt-3 flex flex-wrap items-center gap-2">
           <button
             type="button"
             disabled={pendiente}
-            onClick={() => start(() => cambiarEstado(pieza.id, sinStock ? "disponible" : "sin-stock"))}
+            onClick={() =>
+              start(() =>
+                cambiarEstado(pieza.id, sinStock ? "disponible" : "sin-stock"),
+              )
+            }
             className={`${chico} ${sinStock ? "boton-borde" : "boton-rojo"}`}
           >
             {sinStock ? "Volví a tener" : "La vendí"}
           </button>
-          <button type="button" onClick={() => setEditando(true)} className={`${chico} boton-borde`}>
+          <button
+            type="button"
+            onClick={() => setEditando(true)}
+            className={`${chico} boton-borde`}
+          >
             Cambiar precio
           </button>
         </div>
