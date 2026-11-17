@@ -1,0 +1,21 @@
+{
+  "transicion": 16,
+  "olvido": {
+    "escenas": { "intro": 90, "llamada": 500, "cierre": 120 },
+    "error": { "toques": [26, 38, 50, 62], "digitos": ["5", "9", "7", "2"], "en": 70 },
+    "olvideEn": 140,
+    "atiendeEn": 262,
+    "graciasEn": 360,
+    "nuevo": { "toques": [392, 404, 416, 428], "digitos": ["1", "2", "3", "4"], "en": 436 },
+    "piezasEn": 452
+  },
+  "acceso": {
+    "escenas": { "telefono": 330, "cierre": 100 },
+    "compartirEn": 34,
+    "agregarInicioEn": 78,
+    "agregarEn": 124,
+    "inicioEn": 132,
+    "iconoEn": 148,
+    "tocaEn": 214
+  }
+}

@@ -46,3 +46,11 @@ next-env.d.ts
 /.data
 
 /fotos-originales
+
+# video de lanzamiento (Remotion)
+/video-lanzamiento/node_modules
+/video-lanzamiento/out
+/video-lanzamiento/public/musica-*.wav
+
+# borradores locales del hilo y cuadros sueltos
+/demo-video

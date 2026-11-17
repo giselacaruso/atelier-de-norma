@@ -1,0 +1,16 @@
+{
+  "name": "norma-lanzamiento",
+  "private": true,
+  "scripts": {
+    "studio": "remotion studio",
+    "musica": "node musica/lanzamiento.mjs && node musica/olvido.mjs && node musica/acceso.mjs",
+    "render": "npm run musica && remotion render Lanzamiento out/lanzamiento.mp4 && remotion render OlvidoClave out/olvido-la-clave.mp4 && remotion render AccesoDirecto out/icono-en-el-celu.mp4"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.544",
+    "@remotion/transitions": "^4.0.544",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.544"
+  }
+}

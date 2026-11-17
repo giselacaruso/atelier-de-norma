@@ -10,6 +10,17 @@ Sus clientes son más o menos como ella.
 | `/` | Clientes | Ven las tazas y tocan "La quiero": se abre WhatsApp con el pedido escrito. Sin cuentas, sin mail, sin carrito. |
 | `/taller` | Norma | Saca una foto, le pone nombre y precio, y listo. Recibe avisos en el celular cuando alguien quiere algo. |
 
+## En video
+
+Tocá cada video para verlo completo y con sonido.
+
+| Lanzamiento · 60 s | Me olvidé la clave · 22 s | El ícono en el celu · 14 s |
+|:---:|:---:|:---:|
+| [![Video de lanzamiento](docs/videos/lanzamiento.gif)](docs/videos/lanzamiento.mp4) | [![Norma se olvida el PIN y la atiende Goncy](docs/videos/olvide-la-clave.gif)](docs/videos/olvide-la-clave.mp4) | [![Goncy le guarda el taller en la pantalla de inicio](docs/videos/icono-en-el-celu.gif)](docs/videos/icono-en-el-celu.mp4) |
+| Quién es Norma, cómo se compra y cómo maneja la tienda. | Si se olvida el PIN, el celu llama a Goncy y entra con una clave nueva. | Se guarda una sola vez y Norma entra con un toque. |
+
+Los videos están hechos con [Remotion](https://www.remotion.dev) en [`video-lanzamiento/`](video-lanzamiento). La música es original y se compone con código, nota por nota, sin IA ni samples ([`video-lanzamiento/musica/`](video-lanzamiento/musica)).
+
 ## Por qué así y no un bot de WhatsApp
 
 La idea más obvia era que Norma administrara todo hablándole a un bot de WhatsApp. La descarté a propósito:
