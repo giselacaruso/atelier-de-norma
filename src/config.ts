@@ -3,8 +3,8 @@ export const tienda = {
   nombre: "Atelier de Norma",
   frase: "Comprá fácil y rápido mis artesanías.",
   // Número de WhatsApp de Norma, con código de país y sin "+" ni espacios.
-  whatsapp: "5491158355672",
-  whatsappVisible: "11 5835-5672",
+  // Vacío = modo demo: WhatsApp se abre con el mensaje escrito y cada uno elige a quién mandárselo.
+  whatsapp: "",
   // Para pagar por transferencia
   alias: "atelier.norma",
   titular: "Norma (cuenta de prueba)",
@@ -12,6 +12,9 @@ export const tienda = {
   mercadoPago: "",
   retiro: "Retirás por el taller o lo coordinamos por WhatsApp.",
 };
+
+/** Sin número cargado, la tienda está en modo demo. */
+export const modoDemo = !tienda.whatsapp;
 
 export function linkWhatsApp(texto: string) {
   return `https://wa.me/${tienda.whatsapp}?text=${encodeURIComponent(texto)}`;

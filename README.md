@@ -65,7 +65,7 @@ Código: [`src/lib/procesar-foto.ts`](src/lib/procesar-foto.ts) y [`RecortarFoto
 3. Norma contesta con el alias, cobra por transferencia y coordinan el retiro o envío.
 4. En el taller toca **"Se vendió"** y la taza pasa a "Sin stock".
 
-Para probar los mensajes: poné tu propio número en `src/config.ts` (`whatsapp`). WhatsApp abre el chat "Tú" (mensajes a uno mismo).
+**Modo demo:** si `whatsapp` está vacío en `src/config.ts`, WhatsApp se abre con el pedido escrito y cada uno elige a quién mandárselo (por ejemplo, a sí mismo). Un cartelito lo explica. Para la tienda real, se carga el número de Norma.
 
 ## Avisos para Norma
 

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, X } from "lucide-react";
 import { linkWhatsApp } from "@/config";
+import { AvisoDemo } from "./AvisoDemo";
 import { CaraNorma } from "./Marca";
 
 /*
@@ -116,6 +117,7 @@ export function NormaBot({ pieza, saludar = true }: { pieza?: string; saludar?: 
             </p>
           </div>
 
+          <AvisoDemo className="px-4 pb-2 pt-3 text-center" />
           <ul className="flex flex-col gap-2 px-4 pb-4 pt-1">
             {opciones.map(([texto, mensaje]) => (
               <li key={texto}>
