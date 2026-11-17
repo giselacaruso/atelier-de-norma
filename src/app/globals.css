@@ -199,7 +199,7 @@ body {
 .logo {
   display: inline-block;
   height: 1.5em;
-  aspect-ratio: 1400 / 469;
+  aspect-ratio: 1202 / 380;
   background: currentColor;
   -webkit-mask: url("/marca/logo.png") center / contain no-repeat;
   mask: url("/marca/logo.png") center / contain no-repeat;

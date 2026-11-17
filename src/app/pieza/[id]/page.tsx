@@ -33,6 +33,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
       description: `Hecha a mano por Norma. ${tienda.nombre}.`,
       images: [{ url: pieza.foto, width: 1600, height: 1600, alt: pieza.nombre }],
     },
+    twitter: { card: "summary_large_image", title: titulo, images: [pieza.foto] },
   };
 }
 
