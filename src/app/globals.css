@@ -211,7 +211,7 @@ body {
   background: #fff;
   padding: 0.4rem 0.4rem 1.6rem;
   box-shadow: 0 1px 2px rgb(42 33 29 / 0.14), 0 16px 30px -14px rgb(42 33 29 / 0.4);
-  width: min(44vw, 11rem); /* celular: 2 por fila */
+  width: min(40vw, 11rem); /* celular: 2 por fila */
   flex: none;
 }
 @media (min-width: 40rem) {

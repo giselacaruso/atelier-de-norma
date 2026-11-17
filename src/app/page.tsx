@@ -37,7 +37,7 @@ export default async function Tienda() {
     <>
       {/* ---------- Hero: logo rojo, Polaroids del taller y la frase ---------- */}
       {/* Ocupa todo el alto de la pantalla; el contenido queda centrado en el medio */}
-      <header className="mx-auto flex min-h-svh max-w-6xl flex-col px-5 pb-10 pt-5 sm:px-8">
+      <header className="mx-auto flex min-h-svh max-w-6xl flex-col px-5 pb-20 pt-5 sm:px-8 sm:pb-10">
         <div className="flex justify-end">
           <BotonLetra />
         </div>
@@ -45,7 +45,7 @@ export default async function Tienda() {
         <div className="flex flex-1 flex-col justify-center">
 
         {/* Entrada escalonada: primero el logo, después las fotos de a una, al final la frase. */}
-        <h1 className="entrar mt-6 text-center text-rojo sm:mt-4">
+        <h1 className="entrar mt-3 text-center text-rojo sm:mt-4">
           <Logo className="!h-auto w-[min(88%,30rem)]" />
         </h1>
 
@@ -62,7 +62,7 @@ export default async function Tienda() {
           ))}
         </div>
 
-        <p className="entrar volanta mt-12 text-center text-rojo" style={{ "--i": 6 } as React.CSSProperties}>
+        <p className="entrar volanta mt-8 text-center text-rojo sm:mt-12" style={{ "--i": 6 } as React.CSSProperties}>
           Cerámica hecha con amor. Comprá fácil y rápido.
         </p>
         </div>
