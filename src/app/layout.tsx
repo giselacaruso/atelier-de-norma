@@ -3,6 +3,7 @@ import "./globals.css";
 import { tienda } from "@/config";
 
 import { sitio } from "@/lib/sitio";
+import { Analytics } from "@vercel/analytics/next";
 
 export const generateMetadata = async (): Promise<Metadata> => ({
   metadataBase: new URL(await sitio()),
@@ -23,7 +24,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <script dangerouslySetInnerHTML={{ __html: letra }} />
       </head>
-      <body className="min-h-screen antialiased">{children}</body>
+      <body className="min-h-screen antialiased">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
