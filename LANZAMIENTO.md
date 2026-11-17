@@ -27,7 +27,7 @@ Lo marcado como 🎭 es a propósito para el demo: no se toca hasta el lanzamien
 - [ ] **Recorrer el taller entero en la web publicada**: subir una taza con foto del celular, cambiar un precio, marcarla vendida, borrarla.
 - [ ] **Probar los avisos al celular** ("Probar aviso" en el taller) en un teléfono real.
 - [ ] **Probar en un celular real**, no solo emulado: un iPhone y un Android.
-- [ ] **Copia de seguridad diaria** de los datos, para poder volver atrás si algo se rompe.
+- [x] **Copia de seguridad diaria** de los datos (ver "Cómo volver atrás" abajo).
 
 ---
 
@@ -47,7 +47,8 @@ Lo marcado como 🎭 es a propósito para el demo: no se toca hasta el lanzamien
 - [ ] Dejarle el taller abierto en su celular y el ícono en la pantalla de inicio.
 
 ### Datos y seguridad
-- [ ] Copia de seguridad diaria funcionando (y probar restaurar una vez).
+- [x] Copia de seguridad diaria funcionando (restaurar probado en local).
+- [ ] Guardar además una copia fuera de Upstash (hoy las copias viven en el mismo Redis).
 - [ ] Evitar que dos cambios al mismo tiempo se pisen (hoy toda la tienda se guarda en un solo bloque).
 - [ ] Que al borrar una taza se borre también su foto del almacenamiento.
 - [ ] Revisar que el recordatorio automático (corre 1 vez por día a las 10 h) alcance.
@@ -65,3 +66,33 @@ Lo marcado como 🎭 es a propósito para el demo: no se toca hasta el lanzamien
 ---
 
 **Cómo sabemos que salió bien:** Norma sube piezas sola cada semana, le llegan mensajes desde el sitio y nadie tiene que llamar a Goncy de verdad.
+
+---
+
+## Cómo volver atrás (copias de seguridad)
+
+Todos los días a las 10 h se guarda una copia de la tienda entera (tazas, precios, estados).
+Quedan las de los últimos 30 días. Las fotos no se copian: siguen en Vercel Blob.
+
+La clave es `CRON_SECRET` (está en Vercel → Settings → Environment Variables).
+
+Ver qué copias hay:
+
+```bash
+curl -H "Authorization: Bearer CLAVE" https://atelier-de-norma.vercel.app/api/respaldos
+```
+
+Hacer una copia ahora (por ejemplo, antes de un cambio grande):
+
+```bash
+curl -H "Authorization: Bearer CLAVE" -X POST -d '{"accion":"respaldar"}' https://atelier-de-norma.vercel.app/api/respaldos
+```
+
+Volver la tienda a una fecha:
+
+```bash
+curl -H "Authorization: Bearer CLAVE" -X POST -d '{"restaurar":"2026-11-17"}' https://atelier-de-norma.vercel.app/api/respaldos
+```
+
+Antes de restaurar, se guarda solo el estado actual como `antes-de-restaurar-…`.
+Si restauraste por error, restaurás esa y queda todo como estaba.
