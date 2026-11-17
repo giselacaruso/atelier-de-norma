@@ -6,7 +6,6 @@ import { notFound } from "next/navigation";
 import { leer } from "@/lib/store";
 import { sitio } from "@/lib/sitio";
 import { formatoPrecio, linkCompra, linkWhatsApp, tienda } from "@/config";
-import { AvisoDemo } from "@/components/AvisoDemo";
 import { Logo } from "@/components/Marca";
 import { Etiqueta } from "@/components/TarjetaPieza";
 import { NormaBot } from "@/components/NormaBot";
@@ -89,7 +88,6 @@ export default async function PaginaPieza({ params }: { params: Promise<{ id: st
               Preguntar si vuelve
             </a>
           )}
-          <AvisoDemo className="mt-4" />
         </div>
       </div>
       <NormaBot pieza={pieza.nombre} saludar={false} />

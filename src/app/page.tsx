@@ -7,7 +7,6 @@ import { tienda } from "@/config";
 import { Logo } from "@/components/Marca";
 import { BotonLetra } from "@/components/BotonLetra";
 import { TarjetaPieza } from "@/components/TarjetaPieza";
-import { AvisoDemo } from "@/components/AvisoDemo";
 import { NormaBot, BotonHablar } from "@/components/NormaBot";
 
 export const dynamic = "force-dynamic";
@@ -79,7 +78,6 @@ export default async function Tienda() {
               del horno.
             </h2>
             <BotonHablar className="boton boton-rojo mt-6 !min-h-12">¡Hablemos!</BotonHablar>
-            <AvisoDemo className="mt-4" />
           </div>
 
           {lista.length ? (
