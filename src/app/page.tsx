@@ -50,14 +50,15 @@ export default async function Tienda() {
           <Logo className="!h-auto w-[min(88%,30rem)]" />
         </h1>
 
-        <div className="mt-8 flex items-start justify-center sm:mt-10">
+        {/* En el celular: 2 filas de 2, grandes y un poco encimadas. En compu: las 4 en fila. */}
+        <div className="mx-auto mt-8 grid max-w-[24rem] grid-cols-2 justify-items-center gap-x-1 gap-y-4 sm:mt-10 sm:flex sm:max-w-none sm:items-start sm:justify-center sm:gap-0">
           {fotos.map((f, i) => (
             <figure
               key={f.src}
-              className={`polaroid entrar ${f.clase} ${i ? "-ml-3 sm:-ml-4" : ""}`}
+              className={`polaroid entrar ${f.clase} ${i ? "sm:-ml-4" : ""}`}
               style={{ "--i": i + 1 } as React.CSSProperties}
             >
-              <Image src={f.src} alt={f.alt} width={546} height={546} priority sizes="(min-width: 640px) 260px, 23vw" />
+              <Image src={f.src} alt={f.alt} width={546} height={546} priority sizes="(min-width: 640px) 260px, 45vw" />
             </figure>
           ))}
         </div>

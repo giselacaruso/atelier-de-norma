@@ -201,8 +201,13 @@ body {
   background: #fff;
   padding: 0.4rem 0.4rem 1.6rem;
   box-shadow: 0 1px 2px rgb(42 33 29 / 0.14), 0 16px 30px -14px rgb(42 33 29 / 0.4);
-  width: clamp(4rem, 22vw, 13rem);
+  width: min(44vw, 11rem); /* celular: 2 por fila */
   flex: none;
+}
+@media (min-width: 40rem) {
+  .polaroid {
+    width: clamp(4rem, 22vw, 13rem);
+  }
 }
 .polaroid img {
   display: block;
@@ -264,6 +269,21 @@ body {
   animation-delay: calc(var(--i, 0) * 70ms + 60ms);
 }
 
+/* Ondas del teléfono sonando (llamada a Goncy). Es decorativa: con menos movimiento no se muestra. */
+@keyframes onda {
+  from {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.7);
+  }
+}
+.onda {
+  animation: onda 1.6s var(--ease-out-quad) infinite;
+}
+
 @keyframes fundir {
   from {
     opacity: 0;
@@ -283,6 +303,9 @@ body {
   }
   .desaparecer {
     animation-name: fundir-salir;
+  }
+  .onda {
+    display: none;
   }
   .boton:active,
   .pestana:active {

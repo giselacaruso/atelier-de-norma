@@ -120,3 +120,43 @@ export async function cambiar<T>(fn: (db: DB) => T): Promise<T> {
 }
 
 export const nuevoId = () => randomUUID().slice(0, 8);
+
+/*
+ * Intentos fallidos de PIN, por conexión. Van aparte de la tienda y se borran solos
+ * cuando pasa la espera. Sin Redis (en local) quedan en memoria.
+ */
+const intentosLocales = new Map<string, { n: number; hasta: number }>();
+
+/** Cuántos intentos fallidos lleva y cuántos segundos faltan para que se borren. */
+export async function leerIntentos(clave: string): Promise<{ n: number; segundos: number }> {
+  if (KV_URL && KV_TOKEN) {
+    const k = `atelier:intentos:${clave}`;
+    const [n, ttl] = await Promise.all([kv(["GET", k]), kv(["TTL", k])]);
+    return { n: Number(n) || 0, segundos: Math.max(0, Number(ttl) || 0) };
+  }
+  const r = intentosLocales.get(clave);
+  if (!r || r.hasta < Date.now()) return { n: 0, segundos: 0 };
+  return { n: r.n, segundos: Math.ceil((r.hasta - Date.now()) / 1000) };
+}
+
+/** Suma un intento fallido. La cuenta se borra sola `segundos` después del primero. */
+export async function sumarIntento(clave: string, segundos: number): Promise<number> {
+  if (KV_URL && KV_TOKEN) {
+    const k = `atelier:intentos:${clave}`;
+    const n = Number(await kv(["INCR", k]));
+    if (n === 1) await kv(["EXPIRE", k, segundos]);
+    return n;
+  }
+  const r = intentosLocales.get(clave);
+  if (!r || r.hasta < Date.now()) {
+    intentosLocales.set(clave, { n: 1, hasta: Date.now() + segundos * 1000 });
+    return 1;
+  }
+  r.n += 1;
+  return r.n;
+}
+
+export async function borrarIntentos(clave: string) {
+  if (KV_URL && KV_TOKEN) await kv(["DEL", `atelier:intentos:${clave}`]);
+  else intentosLocales.delete(clave);
+}

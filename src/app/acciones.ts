@@ -18,8 +18,7 @@ async function soloNorma() {
 /* ---------- Norma ---------- */
 
 export async function ingresar(pin: string) {
-  const ok = await entrar(pin);
-  return ok;
+  return entrar(String(pin).slice(0, 16));
 }
 
 export async function agregarPieza(form: FormData) {
