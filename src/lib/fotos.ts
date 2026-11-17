@@ -4,7 +4,7 @@ import path from "path";
 import { put } from "@vercel/blob";
 import { nuevoId } from "./store";
 
-export const DIR_FOTOS = path.join(process.cwd(), ".data", "fotos");
+export const DIR_FOTOS = process.env.VERCEL ? "/tmp/atelier/fotos" : path.join(process.cwd(), ".data", "fotos");
 
 /** Guarda la foto ya procesada y devuelve la URL pública. */
 export async function guardarFoto(archivo: Blob): Promise<string> {

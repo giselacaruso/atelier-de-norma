@@ -45,7 +45,8 @@ export type DB = {
 const KV_URL = process.env.KV_REST_API_URL;
 const KV_TOKEN = process.env.KV_REST_API_TOKEN;
 const KEY = "atelier:db";
-const DIR = path.join(process.cwd(), ".data");
+// En Vercel el disco es de solo lectura: sin Redis, se usa /tmp (sirve para probar, se borra solo).
+const DIR = process.env.VERCEL ? "/tmp/atelier" : path.join(process.cwd(), ".data");
 const ARCHIVO = path.join(DIR, "db.json");
 
 const dia = 24 * 60 * 60 * 1000;
