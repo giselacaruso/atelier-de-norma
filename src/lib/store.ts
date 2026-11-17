@@ -160,3 +160,66 @@ export async function borrarIntentos(clave: string) {
   if (KV_URL && KV_TOKEN) await kv(["DEL", `atelier:intentos:${clave}`]);
   else intentosLocales.delete(clave);
 }
+
+/*
+ * Copias de seguridad: una por día, se guardan 30 días y después se borran solas.
+ * En Vercel van a Redis (claves aparte, privadas); en local, a .data/respaldos/.
+ */
+const DIAS_RESPALDO = 30;
+const PREFIJO_RESPALDO = "atelier:respaldo:";
+const DIR_RESPALDOS = path.join(DIR, "respaldos");
+
+/** Fecha de hoy en Argentina, ej. 2026-11-17 */
+const hoy = () => new Date().toLocaleDateString("en-CA", { timeZone: "America/Argentina/Buenos_Aires" });
+
+async function guardarRespaldo(nombre: string, contenido: string) {
+  if (KV_URL && KV_TOKEN) {
+    await kv(["SET", PREFIJO_RESPALDO + nombre, contenido, "EX", (DIAS_RESPALDO + 1) * 24 * 60 * 60]);
+    return;
+  }
+  await fs.mkdir(DIR_RESPALDOS, { recursive: true });
+  await fs.writeFile(path.join(DIR_RESPALDOS, `${nombre}.json`), contenido);
+  // En local también se borran las de más de 30 días
+  for (const f of await fs.readdir(DIR_RESPALDOS)) {
+    const fecha = Date.parse(f.slice(0, 10));
+    if (fecha && Date.now() - fecha > (DIAS_RESPALDO + 1) * dia) await fs.rm(path.join(DIR_RESPALDOS, f));
+  }
+}
+
+/** Guarda una copia de toda la tienda con la fecha de hoy. Si ya había una de hoy, la reemplaza. */
+export async function respaldar(nombre = hoy()) {
+  const db = await leer();
+  await guardarRespaldo(nombre, JSON.stringify(db));
+  return { nombre, piezas: db.piezas.length };
+}
+
+/** Las copias que hay, de la más nueva a la más vieja. */
+export async function listarRespaldos(): Promise<string[]> {
+  let nombres: string[];
+  if (KV_URL && KV_TOKEN) {
+    nombres = ((await kv(["KEYS", `${PREFIJO_RESPALDO}*`])) as string[]).map((k) => k.slice(PREFIJO_RESPALDO.length));
+  } else {
+    nombres = (await fs.readdir(DIR_RESPALDOS).catch(() => [] as string[])).map((f) => f.replace(/\.json$/, ""));
+  }
+  return nombres.sort().reverse();
+}
+
+/**
+ * Vuelve la tienda a como estaba en una copia. Antes guarda el estado actual
+ * como "antes-de-restaurar-…", así una restauración por error también se puede deshacer.
+ */
+export async function restaurar(nombre: string) {
+  if (!/^[\w:.-]+$/.test(nombre)) throw new Error("Nombre de copia inválido");
+  const raw =
+    KV_URL && KV_TOKEN
+      ? await kv(["GET", PREFIJO_RESPALDO + nombre])
+      : await fs.readFile(path.join(DIR_RESPALDOS, `${nombre}.json`), "utf8").catch(() => null);
+  if (!raw) throw new Error(`No existe la copia ${nombre}`);
+  const db = JSON.parse(raw) as DB;
+  if (!Array.isArray(db.piezas)) throw new Error("La copia está dañada");
+
+  const actual = `antes-de-restaurar-${new Date().toISOString().replace(/[:.]/g, "-")}`;
+  await respaldar(actual);
+  await guardar(db);
+  return { restaurada: nombre, piezas: db.piezas.length, copiaDelEstadoAnterior: actual };
+}
