@@ -3,6 +3,8 @@
 Tienda de cerámica para la tía Norma: 70 años, no tiene compu ni mail, ve poco y no tiene paciencia para la tecnología.
 Sus clientes son más o menos como ella.
 
+Hecho para el challenge de [Gonzalo Pozzo (@goncy)](https://x.com/goncy).
+
 **Dos pantallas, dos públicos:**
 
 | | Para quién | Qué hace |
